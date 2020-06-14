@@ -1,0 +1,10 @@
+sudo: required # we need super user permission to work with docker
+language: generic 
+services: # we need a copy of docker engine ready to go
+    - docker 
+
+before_install:
+    - docker build -f Dockerfile.dev -t botour/reactapp-dev . # Good convension to 
+
+scripts:
+    - docker run  -e CI=true botour/reactapp-dev npm run test # Without -- --covergage (test suite will hang waiting for user input and travis hangs too)
